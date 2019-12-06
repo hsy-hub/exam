@@ -21,7 +21,8 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'email', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
             }},
-            {field: 'gender', title: '用户性别', align:'center'
+            {templet:'<div>{{(d.gender1.genderName)}}</div>', title: '用户性别', align:'center'},
+            // {field: 'gender', title: '用户性别', align:'center'
                 // ,templet:function (d) {
                     // if(d.gender == "1"){
                     //     return "男";
@@ -31,7 +32,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     //     return "保密";
                     // }
                 // }
-                },
+                // },
             {templet:'<div>{{(d.stauts1.stautsName)}}</div>', title: '用户状态', align:'center'},
             // {field: 'stauts', title: '用户状态',  align:'center'
             //     ,templet:function(d){

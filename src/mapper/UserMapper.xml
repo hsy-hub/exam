@@ -14,8 +14,16 @@
         <result column="classid" property="classid"/>
         <result column="endLoginTime" property="endLoginTime"/>
         <association property="levels" javaType="Level">
-            <id property="id"  column="lid"/>
+            <id property="id" column="lid"/>
             <result property="levelName" column="levelName"/>
+        </association>
+        <association property="stauts1" javaType="Stauts">
+            <id property="id"  column="sid"/>
+            <result property="stautsName" column="stautsName"/>
+        </association>
+        <association property="gender1" javaType="Gender">
+            <id property="id"  column="gid"/>
+            <result property="genderName" column="genderName"/>
         </association>
     </resultMap>
 
@@ -27,12 +35,12 @@
     </select>
 
     <select id="getUserList"  resultMap="resultMap" parameterType="hashmap">
-        SELECT u.id,u.loginName,u.email,u.gender,s.stautsName,l.levelName,u.endLoginTime,l.id as lid FROM USER u LEFT JOIN `level` l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id
-        <!--<where>-->
-            <!--<if test="loginName != null and loginName != ''">-->
-                <!--and loginName like '%${loginName}%'-->
-            <!--</if>-->
-        <!--</where>-->
+        SELECT u.id,u.loginName,u.email,g.`genderName`,s.stautsName,l.levelName,u.endLoginTime,l.id AS lid,s.`id` AS sid,g.id AS gid FROM USER u LEFT JOIN `level` l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER JOIN gender g ON u.gender=g.id
+        <where>
+            <if test="loginName != null and loginName != ''">
+                and loginName like '%${loginName}%'
+            </if>
+        </where>
         limit #{pagestart},#{size}
     </select>
 

@@ -57,23 +57,57 @@ layui.use(['form','layer','table','laytpl'],function(){
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
-    $(".search_btn").on("click",function(){
-        var searchVal = $('#searchVal');
-        if($(".searchVal").val() != ''){
-            table.reload("newsListTable",{
+    var active = {
+        reload: function () {
+            var searchVal = $('#searchVal');
+            //执行重载
+            table.reload('newsListTable', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                ,url: "userList.action"
-                ,where: {
-                    // key: $(".searchVal").val()  //搜索的关键字
-                    'loginName':searchVal.val()
+                , url: "userList.action"
+                , where: {
+                    // 'loginName': searchVal.val()
+                    key:$(".searchVal").val()
                 }
-            })
-        }else{
-            layer.msg("请输入搜索的内容");
+            }, 'data');
+console.log(searchVal.val())
         }
+    };
+
+    // $(".search_btn").on("click",function(){
+    //     var searchVal = $('#searchVal');
+    //     if($(".searchVal").val() != ''){
+    //         //执行重载
+    //         table.reload('newsListTable', {
+    //             page: {
+    //                 curr: 1 //重新从第 1 页开始
+    //             }
+    //             , url: "userList.action"
+    //             , where: {
+    //                 'loginName': searchVal.val()
+    //             }
+    //         }, 'data');
+    //         // table.reload("newsListTable",{
+    //         //     page: {
+    //         //         curr: 1 //重新从第 1 页开始
+    //         //     }
+    //         //     ,url: "userList.action"
+    //         //     ,where: {
+    //         //         // key: $(".searchVal").val()  //搜索的关键字
+    //         //         'loginName':searchVal.val()
+    //         //     }
+    //         // })
+    //     }else{
+    //         layer.msg("请输入搜索的内容");
+    //     }
+    // });
+    //
+    $('.layui-inline .layui-btn').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
     });
+
 
 
     //添加用户

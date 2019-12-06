@@ -96,7 +96,7 @@ layui.use(['form','element','layer','jquery'],function(){
         $(".userAll span").text(data.length);
     })
 
-    //用户数量
+    //用户总数
     $.get("../json/userList.json",function(data){
         $(".userAll span").text(data.count);
     })

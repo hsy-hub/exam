@@ -52,4 +52,21 @@ public class UserController {
         returnTable.put("count", pagecount);
         return returnTable;
     }
+
+    @RequestMapping("/delete.action")
+    public @ResponseBody
+    int delete(String ids) {
+        boolean d = ids.endsWith(",");
+        if (d) {
+            ids = ids.substring(0, ids.length() - 1);
+        }
+        String[] all = ids.split(",");
+
+        int result = 0;
+        for (String id : all) {
+            result = userDao.delete(Integer.parseInt(id));
+        }
+        return result;
+    }
+
 }

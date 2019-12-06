@@ -9,4 +9,5 @@ public interface UserMapper {
     User login(User user);
     List<User> getUserList(HashMap map);
     Integer userCount();
+    int delete(Integer id);
 }

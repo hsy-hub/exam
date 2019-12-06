@@ -21,27 +21,35 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'email', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
             }},
-            {field: 'gender', title: '用户性别', align:'center',templet:function (d) {
-                    if(d.gender == "1"){
-                        return "男";
-                    }else if(d.gender == "2"){
-                        return "女";
-                    }else if(d.gender == "3"){
-                        return "保密";
-                    }
-                }},
-            {field: 'stauts', title: '用户状态',  align:'center',templet:function(d){
-                return d.stauts == "1" ? "正常使用" : "限制使用";
-            }},
-            {field: 'level', title: '用户等级', align:'center',templet:function(d){
-                if(d.level == "1"){
-                    return "管理员";
-                }else if(d.level == "2"){
-                    return "教师";
-                }else if(d.level == "3"){
-                    return "学生";
-                }
-            }},
+            {field: 'gender', title: '用户性别', align:'center'
+                // ,templet:function (d) {
+                    // if(d.gender == "1"){
+                    //     return "男";
+                    // }else if(d.gender == "2"){
+                    //     return "女";
+                    // }else if(d.gender == "3"){
+                    //     return "保密";
+                    // }
+                // }
+                },
+            {templet:'<div>{{(d.stauts1.stautsName)}}</div>', title: '用户状态', align:'center'},
+            // {field: 'stauts', title: '用户状态',  align:'center'
+            //     ,templet:function(d){
+            //     return d.stauts == "1" ? "正常使用" : "限制使用";
+            // }
+            // },
+            {templet:'<div>{{(d.levels.levelName)}}</div>', title: '用户等级', align:'center'},
+            // {field: 'level', title: '用户等级', align:'center'
+            //     ,templet:function(d){
+            //     if(d.level == "1"){
+            //         return "管理员";
+            //     }else if(d.level == "2"){
+            //         return "教师";
+            //     }else if(d.level == "3"){
+            //         return "学生";
+            //     }
+            // }
+            // },
             {field: 'endLoginTime', title: '最后登录时间', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
@@ -49,6 +57,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
+        var searchVal = $('#searchVal');
         if($(".searchVal").val() != ''){
             table.reload("newsListTable",{
                 page: {
@@ -65,25 +74,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         }
     });
 
-    // var active = {
-    //     reload: function () {
-    //         var searchName = $('#searchName');
-    //         //执行重载
-    //         table.reload('testReload', {
-    //             page: {
-    //                 curr: 1 //重新从第 1 页开始
-    //             }
-    //             , url: "userList2.action"
-    //             , where: {
-    //                 'loginName': searchName.val()
-    //             }
-    //         }, 'data');
-    //     }
-    // };
-    // $('.demoTable .layui-btn').on('click', function () {
-    //     var type = $(this).data('type');
-    //     active[type] ? active[type].call(this) : '';
-    // });
 
     //添加用户
     function addUser(edit){
@@ -118,7 +108,7 @@ layui.use(['form','layer','table','laytpl'],function(){
     }
     $(".addNews_btn").click(function(){
         addUser();
-    })
+    });
 
     //批量删除
     $(".delAll_btn").click(function(){
@@ -140,7 +130,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         }else{
             layer.msg("请选择需要删除的用户");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(userList)', function(obj){

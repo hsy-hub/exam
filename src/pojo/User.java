@@ -11,6 +11,24 @@ public class User {
     String describe;
     String classid;
     String endLoginTime;
+     Level levels;
+     Stauts stauts1;
+
+    public Stauts getStauts1() {
+        return stauts1;
+    }
+
+    public void setStauts1(Stauts stauts1) {
+        this.stauts1 = stauts1;
+    }
+
+    public Level getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Level levels) {
+        this.levels = levels;
+    }
 
     public String getEndLoginTime() {
         return endLoginTime;

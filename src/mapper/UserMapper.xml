@@ -10,16 +10,20 @@
     </select>
 
     <select id="getUserList"  resultType="User" parameterType="hashmap">
-        <include refid="sql"/>
-        <where>
-            <if test="loginName != null and loginName != ''">
-                and loginName like '%${loginName}%'
-            </if>
-        </where>
+        SELECT u.id,u.loginName,u.email,u.gender,s.stautsName,l.levelName,u.endLoginTime FROM USER u LEFT JOIN `level` l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id
+        <!--<where>-->
+            <!--<if test="loginName != null and loginName != ''">-->
+                <!--and loginName like '%${loginName}%'-->
+            <!--</if>-->
+        <!--</where>-->
         limit #{pagestart},#{size}
     </select>
 
     <select id="userCount" resultType="integer">
         select count(*) from user
     </select>
+
+    <delete id="delete" parameterType="user">
+        delete from user where id=#{id}
+    </delete>
 </mapper>

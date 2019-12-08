@@ -68,25 +68,21 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $("#search_btn").on("click",function(){
-        // if($(".searchVal").val() != ''){
-        var searchVal = $("#searchVal");
-        // var searchVal = $("#searchVal").val();
-            //执行重载
-            table.reload("newsListTable",{
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,url: "/ssm/userList.action"
-                ,where: {
-                    // key: $(".searchVal").val()  //搜索的关键字
-                    'loginName': searchVal.val()
-                    // 'loginName': $.trim(searchVal)  //用trim 输入时前后可以有空格
-                }
-            })
-        // }else{
-        //     layer.msg("请输入搜索的内容");
-        // }
-    });
+            var searchVal = $("#searchVal");
+            // var searchVal = $("#searchVal").val();
+                //执行重载
+                table.reload("userListTable",{
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,url: "/ssm/userList.action"
+                    ,where: {
+                        'loginName': searchVal.val()
+                        // 'loginName': $.trim(searchVal)  //用trim 输入时前后可以有空格
+                    }
+                })
+        });
+
 
     //添加用户
     function addUser(edit){

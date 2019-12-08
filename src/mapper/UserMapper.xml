@@ -40,7 +40,7 @@
     </select>
 
     <select id="getUserList"  resultMap="resultMap" parameterType="hashmap">
-        SELECT u.id,u.loginName,u.email,g.`genderName`,s.stautsName,l.levelName,u.endLoginTime,l.id AS lid,s.`id` AS sid,g.id AS gid FROM USER u LEFT JOIN `level` l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER JOIN gender g ON u.gender=g.id
+        SELECT u.id,u.loginName,u.email,g.genderName,s.stautsName,l.levelName,u.endLoginTime,l.id AS lid,s.id AS sid,g.id AS gid FROM USER u LEFT JOIN level l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER JOIN gender g ON u.gender=g.id
         <where>
             <if test="loginName != null and loginName != ''">
                 and loginName like '%${loginName}%'
@@ -56,4 +56,16 @@
     <delete id="delete" parameterType="user">
         delete from user where id=#{id}
     </delete>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="user">
+        insert into user value (null,#{loginName},null,#{email},#{gender},#{level},#{stauts},#{describe},null,null)
+    </insert>
+
+    <!--<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="user">-->
+        <!--insert into user(loginName,email,gender,level,stauts,describe) values (null,#{loginName},#{email},#{gender},#{level},#{stauts},#{describe})-->
+    <!--</insert>-->
+
+    <update id="updateUserList" parameterType="user">
+        update user set loginName=#{loginName},email=#{email},gender=#{gender},level=#{level},stauts=#{stauts},describe=#{describe} where id=#{id}
+    </update>
 </mapper>

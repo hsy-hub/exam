@@ -17,6 +17,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         id : "userListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
+            // {field: 'id', title: 'ID', minWidth:100, align:"center"},
             {field: 'loginName', title: '用户名', minWidth:100, align:"center"},
             {field: 'email', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
                 return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
@@ -54,77 +55,58 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'endLoginTime', title: '最后登录时间', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
+        , done: function (res, curr, count) {  //回调函数解决最后一页删除跳转到前一页
+            if (res.data.length == 0 && count > 0) {
+                table.reload('newsListTable', {
+                    page: {
+                        curr: curr - 1
+                    }
+                });
+            }
+        }
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
-    var active = {
-        reload: function () {
-            var searchVal = $('#searchVal');
+    $(".search_btn").on("click",function(){
+        // if($(".searchVal").val() != ''){
+        var searchVal = $("#searchVal")
             //执行重载
-            table.reload('newsListTable', {
+            table.reload("newsListTable",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                , url: "userList.action"
-                , where: {
-                    // 'loginName': searchVal.val()
-                    key:$(".searchVal").val()
+                ,url: "userList.action"
+                ,where: {
+                    // key: $(".searchVal").val()  //搜索的关键字
+                    'loginName': searchVal.val()
                 }
-            }, 'data');
-console.log(searchVal.val())
-        }
-    };
-
-    // $(".search_btn").on("click",function(){
-    //     var searchVal = $('#searchVal');
-    //     if($(".searchVal").val() != ''){
-    //         //执行重载
-    //         table.reload('newsListTable', {
-    //             page: {
-    //                 curr: 1 //重新从第 1 页开始
-    //             }
-    //             , url: "userList.action"
-    //             , where: {
-    //                 'loginName': searchVal.val()
-    //             }
-    //         }, 'data');
-    //         // table.reload("newsListTable",{
-    //         //     page: {
-    //         //         curr: 1 //重新从第 1 页开始
-    //         //     }
-    //         //     ,url: "userList.action"
-    //         //     ,where: {
-    //         //         // key: $(".searchVal").val()  //搜索的关键字
-    //         //         'loginName':searchVal.val()
-    //         //     }
-    //         // })
-    //     }else{
-    //         layer.msg("请输入搜索的内容");
-    //     }
-    // });
-    //
-    $('.layui-inline .layui-btn').on('click', function () {
+            })
+        // }else{
+        //     layer.msg("请输入搜索的内容");
+        // }
+    });
+    $('.newsListTable .layui-btn').on('click', function () {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
 
-
-
     //添加用户
     function addUser(edit){
         var index = layui.layer.open({
+            resize: true,
             title : "添加用户",
             type : 2,
+            shadeClose: true,
             content : "userAdd.html",
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
-                    body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find(".loginName").val(edit.loginName);  //登录名
+                    body.find(".email").val(edit.email);  //邮箱
+                    body.find(".gender input[value="+edit.gender+"]").prop("checked","checked");  //性别
+                    body.find(".level").val(edit.level);  //会员等级
+                    body.find(".status").val(edit.status);    //用户状态
+                    body.find(".describe").text(edit.describe);    //用户简介
                     form.render();
                 }
                 setTimeout(function(){
@@ -149,18 +131,35 @@ console.log(searchVal.val())
     $(".delAll_btn").click(function(){
         var checkStatus = table.checkStatus('userListTable'),
             data = checkStatus.data,
-            newsId = [];
+            id = "";
+            // newsId = [];
         if(data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                id += data[i].id + ",";
+                layer.msg(id);
+                // newsId.push(data[i].newsId);
             }
             layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.ajax({
+                    url: "/ssm/delete.action",
+                    data: {"ids": id},
+                    success: function (flag) {
+                        if (flag > 0) {
+                            layer.msg("删除成功");
+                            layer.closeAll();
+                            table.reload('userListTable', {});
+                        } else {
+                            layer.msg("删除失败");
+                        }
+
+                    }
+                })
+                // // $.get("删除文章接口",{
+                // //     newsId : newsId  //将需要删除的newsId作为参数传入
+                // // },function(data){
+                // tableIns.reload();
+                // layer.close(index);
+                // // })
             })
         }else{
             layer.msg("请选择需要删除的用户");
@@ -174,6 +173,16 @@ console.log(searchVal.val())
 
         if(layEvent === 'edit'){ //编辑
             addUser(data);
+            form.val('updabte-form', { //填充数据
+                id:obj.data.id,
+                loginName: obj.data.loginName,//这里必须用input name属性
+                email: obj.data.email,
+                gender: obj.data.gender,
+                level: obj.data.level,
+                status: obj.data.status,
+                describe: obj.data.describe
+                }
+            );
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",
@@ -196,14 +205,41 @@ console.log(searchVal.val())
             });
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
-                // })
+                $.ajax({
+                    url: "/ssm/delete.action",
+                    data: {"ids": data.id},
+                    success: function (flag) {
+                        if (flag == 1) {
+                            layer.msg("删除成功");
+                            layer.closeAll();
+                            table.reload('userListTable', {});
+                        } else {
+                            layer.msg("删除失败");
+                        }
+                    }
+                })
+                // // $.get("删除文章接口",{
+                // //     newsId : data.newsId  //将需要删除的newsId作为参数传入
+                // // },function(data){
+                //     tableIns.reload();
+                //     layer.close(index);
+                // // })
             });
         }
     });
+    form.on('submit(update-submit_btn)', function (data) {
+        console.log(data);
+        $.post('updateUserList.action', data.field, function (flag) {
+
+            if (flag == 1) {
+                layer.msg("修改成功", {icon: 6});
+                layer.closeAll();
+                table.reload('userListTable', {});//修改后返回列表页面进行刷新
+            } else {
+                layer.msg("修改失败", {icon: 6});
+            }
+        })
+        //return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    })
 
 })

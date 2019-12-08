@@ -1,11 +1,9 @@
 package controller;
 
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.User;
 import service.UserDao;
@@ -13,6 +11,7 @@ import tool.Tool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +66,22 @@ public class UserController {
             result = userDao.delete(Integer.parseInt(id));
         }
         return result;
+    }
+
+
+    @RequestMapping("/addUser.action")
+    @ResponseBody
+    public int addUser(@RequestBody User user) throws IOException {
+        int add = userDao.add(user);
+        return add;
+
+    }
+
+
+    @RequestMapping("/updateUserList.action")
+    @ResponseBody
+    public int updateUserList(User user) {
+        return userDao.updateUserList(user);
     }
 
 }

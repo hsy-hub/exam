@@ -32,4 +32,14 @@ public class UserDaoImpl implements UserDao {
     public int delete(Integer id) {
         return userMapper.delete(id);
     }
+
+    @Override
+    public int add(User user) {
+        return userMapper.add(user);
+    }
+
+    @Override
+    public int updateUserList(User user) {
+        return userMapper.updateUserList(user);
+    }
 }

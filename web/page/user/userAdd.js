@@ -1,11 +1,13 @@
+var reid;
 layui.use(['form','layer'],function(){
     var form = layui.form
-        layer = parent.layer === undefined ? layui.layer : top.layer,
+        // layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery;
+        layer = layui.layer,
 
     form.on("submit(addUser)",function(data){
         //弹出loading
-        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        // var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
         // 实际使用时的提交信息
         // $.post("上传路径",{
         //     userName : $(".userName").val(),  //登录名
@@ -18,14 +20,33 @@ layui.use(['form','layer'],function(){
         // },function(res){
         //
         // })
-        setTimeout(function(){
-            top.layer.close(index);
-            top.layer.msg("用户添加成功！");
-            layer.closeAll("iframe");
-            //刷新父页面
-            parent.location.reload();
-        },2000);
-        return false;
+        // setTimeout(function(){
+            $.ajax(
+                {
+                    data: JSON.stringify(data.field),
+                    url: "/ssm/addUser.action",
+                    type: "post",
+                    contentType: "application/json",
+                    success: function (d) {
+                        console.log(d);
+                        if (d > 0) {
+                            reid = d;
+                            layer.closeAll();
+                            layer.close(index);
+                            parent.location.reload();//刷新父页面
+                        } else {
+                            layer.msg("添加失败！")
+                        }
+                    }
+                })
+        //     top.layer.close(index);
+        //     top.layer.msg("用户添加成功！");
+        //     layer.closeAll("iframe");
+        //     //刷新父页面
+        //     parent.location.reload();
+        // },2000);
+
+        //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
     })
 
     //格式化时间

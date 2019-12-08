@@ -10,4 +10,6 @@ public interface UserDao {
     List<User> getUserList(HashMap map);
     Integer userCount();
     int delete(Integer id);
+    int add(User user);
+    int updateUserList(User user);
 }

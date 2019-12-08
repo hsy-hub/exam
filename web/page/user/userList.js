@@ -57,7 +57,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         ]]
         , done: function (res, curr, count) {  //回调函数解决最后一页删除跳转到前一页
             if (res.data.length == 0 && count > 0) {
-                table.reload('newsListTable', {
+                table.reload('userListTable', {
                     page: {
                         curr: curr - 1
                     }
@@ -130,6 +130,16 @@ layui.use(['form','layer','table','laytpl'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body',index);
                 if(data){
+                    // form.val('update-form', { //填充数据
+                    //     id: data.id, //这里必须用input name属性
+                    //     loginName: data.loginName,
+                    //     email: data.email,
+                    //     gender: data.gender,
+                    //     level: data.level,
+                    //     stauts: data.stauts,
+                    //     describe: data.describe
+                    // })
+                    body.find(".id").val(data.id); //ID
                     body.find(".loginName").val(data.loginName);  //登录名
                     body.find(".email").val(data.email);  //邮箱
                     body.find(".gender input[value="+data.gender+"]").prop("checked","checked");  //性别

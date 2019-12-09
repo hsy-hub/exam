@@ -23,11 +23,11 @@
             <result property="levelName" column="levelName"/>
         </association>
         <association property="stauts1" javaType="Stauts">
-            <id property="id"  column="sid"/>
+            <id property="id" column="sid"/>
             <result property="stautsName" column="stautsName"/>
         </association>
         <association property="gender1" javaType="Gender">
-            <id property="id"  column="gid"/>
+            <id property="id" column="gid"/>
             <result property="genderName" column="genderName"/>
         </association>
     </resultMap>
@@ -36,11 +36,13 @@
         select * from user
     </sql>
     <select id="login" parameterType="user" resultType="User">
-        <include refid="sql"/> where loginName=#{loginName} and password=#{password}
+        <include refid="sql"/>
+        where loginName=#{loginName} and password=#{password}
     </select>
 
-    <select id="getUserList"  resultMap="resultMap" parameterType="hashmap">
-        SELECT u.id,u.loginName,u.email,g.genderName,s.stautsName,l.levelName,u.endLoginTime,l.id AS lid,s.id AS sid,g.id AS gid FROM USER u LEFT JOIN level l ON  u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER JOIN gender g ON u.gender=g.id
+    <select id="getUserList" resultMap="resultMap" parameterType="hashmap">
+        SELECT u.* ,l.id as lid,l.levelName,g.id as gid,g.genderName,s.id as sid,s.stautsName FROM USER u LEFT JOIN level l ON u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER
+        JOIN gender g ON u.gender=g.id
         <where>
             <if test="loginName != null and loginName != ''">
                 and loginName like '%${loginName}%'
@@ -62,7 +64,7 @@
     </insert>
 
     <!--<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="user">-->
-        <!--insert into user(loginName,email,gender,level,stauts,describe) values (null,#{loginName},#{email},#{gender},#{level},#{stauts},#{describe})-->
+    <!--insert into user(loginName,email,gender,level,stauts,describe) values (null,#{loginName},#{email},#{gender},#{level},#{stauts},#{describe})-->
     <!--</insert>-->
 
     <update id="updateUserList" parameterType="user">

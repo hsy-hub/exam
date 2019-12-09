@@ -24,7 +24,7 @@ layui.use(['form','layer','jquery'],function(){
                         }
                     }
                 })
-            // return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
     //格式化时间

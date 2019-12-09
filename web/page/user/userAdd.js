@@ -47,7 +47,7 @@ layui.use(['form','layer'],function(){
         // },2000);
 
         //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
-    })
+    });
 
     //格式化时间
     function filterTime(val){

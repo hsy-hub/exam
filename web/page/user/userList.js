@@ -96,11 +96,13 @@ layui.use(['form','layer','table','laytpl'],function(){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
                     body.find(".loginName").val(edit.loginName);  //登录名
+                    body.find(".password").val(edit.password);  //密码
                     body.find(".email").val(edit.email);  //邮箱
                     body.find(".gender input[value="+edit.gender+"]").prop("checked","checked");  //性别
                     body.find(".level").val(edit.level);  //会员等级
                     body.find(".status").val(edit.status);    //用户状态
                     body.find(".describe").text(edit.describe);    //用户简介
+                    body.find(".endLoginTime").val(edit.endLoginTime);    //最后登录时间
                     form.render();
                 }
                 setTimeout(function(){
@@ -209,7 +211,6 @@ layui.use(['form','layer','table','laytpl'],function(){
 
         if(layEvent === 'edit'){ //编辑
             userModify(data);
-            return id;
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",

@@ -123,22 +123,22 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //编辑
     function userModify(data){
-        var index = layui.layer.open({
+        var index2 = layui.layer.open({
             title : "修改用户",
             type : 2,
             content : "userModify.html",
-            success : function(layero, index){
-                var body = layui.layer.getChildFrame('body',index);
+            success : function(layero, index2){
+                var body = layui.layer.getChildFrame('body',index2);
                 if(data){
                     body.find(".id").val(data.id); //ID
                     body.find(".loginName").val(data.loginName);  //登录名
+                    body.find(".password").val(data.password);   //密码
                     body.find(".email").val(data.email);  //邮箱
-                    body.find(".gender input[value="+data.gender+"]").prop("checked","checked");  //性别
-                    // body.find("input[name='gender']").val();//input
+                    body.find(".gender input[value='"+data.gender+"']").prop("checked","checked");  //性别
                     body.find(".level").val(data.level);  //会员等级
                     body.find(".status").val(data.stauts);    //用户状态
-                    // body.find("select[name='level']").val();//下拉框
-                    // body.find("select[name='status']").val();//下拉框
+                    body.find(".classid").val(data.classid);    //班级
+                    body.find(".endLoginTime").val(data.endLoginTime);    //最后登录时间
                     body.find(".describe").text(data.describe);    //用户简介
                     form.render();
                 }
@@ -149,16 +149,17 @@ layui.use(['form','layer','table','laytpl'],function(){
                 },500)
             }
         })
-        layui.layer.full(index);
-        window.sessionStorage.setItem("index",index);
+        layui.layer.full(index2);
+        window.sessionStorage.setItem("index2",index2);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
         $(window).on("resize",function(){
-            layui.layer.full(window.sessionStorage.getItem("index"));
+            layui.layer.full(window.sessionStorage.getItem("index2"));
         })
     }
-    $(".modify-btn").click(function(){
-        userModify();
-    });
+
+    // $(".modify-btn").click(function(){
+    //     userModify();
+    // });
 
 
 
@@ -208,6 +209,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
         if(layEvent === 'edit'){ //编辑
             userModify(data);
+            return id;
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",

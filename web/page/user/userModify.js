@@ -1,9 +1,9 @@
 var reid;
-layui.use(['form','layer'],function(){
-    var form = layui.form
+layui.use(['form','layer','jquery'],function(){
+    var form = layui.form,
     // layer = parent.layer === undefined ? layui.layer : top.layer,
-    $ = layui.jquery;
-    layer = layui.layer,
+    $ = layui.$,
+    layer = layui.layer;
 
         form.on("submit(userModify)",function(data){
             $.ajax(
@@ -25,7 +25,7 @@ layui.use(['form','layer'],function(){
                     }
                 })
             //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        })
+        });
 
     //格式化时间
     function filterTime(val){

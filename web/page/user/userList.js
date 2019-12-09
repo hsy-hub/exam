@@ -103,6 +103,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     body.find(".gender input[value=" + edit.gender + "]").prop("checked", "checked");  //性别
                     body.find(".level").val(edit.level);  //会员等级
                     body.find(".status").val(edit.status);    //用户状态
+                    body.find(".classid").val(data.classid);    //班级
                     body.find(".describe").text(edit.describe);    //用户简介
                     body.find(".endLoginTime").val(edit.endLoginTime);    //最后登录时间
                     form.render();
@@ -136,10 +137,10 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                 var body = layui.layer.getChildFrame('body', index2);
                 if (data) {
                     console.log("userlist>>>>>" + JSON.stringify(data));
-                    body.find(".id").val(data.id); //ID
+                    body.find("#id").val(data.id); //ID
                     body.find(".loginName").val(data.loginName);  //登录名
                     body.find(".email").val(data.email);  //邮箱
-                    body.find("#sex input[value=" + data.gender + "]").prop("checked", "checked");  //性别
+                    body.find(".gender input[value=" + data.gender + "]").prop("checked", "checked");  //性别
                     body.find(".level").val(data.level);  //会员等级
                     body.find(".status").val(data.stauts);    //用户状态
                     body.find(".classid").val(data.classid);    //班级

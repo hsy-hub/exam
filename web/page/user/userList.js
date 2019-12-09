@@ -130,21 +130,15 @@ layui.use(['form','layer','table','laytpl'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body',index);
                 if(data){
-                    // form.val('update-form', { //填充数据
-                    //     id: data.id, //这里必须用input name属性
-                    //     loginName: data.loginName,
-                    //     email: data.email,
-                    //     gender: data.gender,
-                    //     level: data.level,
-                    //     stauts: data.stauts,
-                    //     describe: data.describe
-                    // })
                     body.find(".id").val(data.id); //ID
                     body.find(".loginName").val(data.loginName);  //登录名
                     body.find(".email").val(data.email);  //邮箱
                     body.find(".gender input[value="+data.gender+"]").prop("checked","checked");  //性别
+                    // body.find("input[name='gender']").val();//input
                     body.find(".level").val(data.level);  //会员等级
-                    body.find(".status").val(data.status);    //用户状态
+                    body.find(".status").val(data.stauts);    //用户状态
+                    // body.find("select[name='level']").val();//下拉框
+                    // body.find("select[name='status']").val();//下拉框
                     body.find(".describe").text(data.describe);    //用户简介
                     form.render();
                 }

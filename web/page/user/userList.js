@@ -1,4 +1,4 @@
-layui.use(['form', 'layer', 'table', 'laytpl'], function () {
+layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         laytpl = layui.laytpl,

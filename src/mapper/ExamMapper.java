@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ExamMapper {
     List<ExamRecode> getExamRecodeList(HashMap map);
+    Integer examrecodeCount();
 }

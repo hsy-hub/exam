@@ -41,8 +41,8 @@
     </select>
 
     <select id="getUserList" resultMap="resultMap" parameterType="hashmap">
-        SELECT u.* ,l.id as lid,l.levelName,g.id as gid,g.genderName,s.id as sid,s.stautsName FROM USER u LEFT JOIN level l ON u.level=l.id INNER JOIN stauts s ON u.stauts=s.id INNER
-        JOIN gender g ON u.gender=g.id
+        SELECT u.* ,l.id as lid,l.levelName,g.id as gid,g.genderName,s.id as sid,s.stautsName FROM USER u LEFT JOIN level l ON u.level=l.id
+        INNER JOIN stauts s ON u.stauts=s.id INNER JOIN gender g ON u.gender=g.id
         <where>
             <if test="loginName != null and loginName != ''">
                 and loginName like '%${loginName}%'

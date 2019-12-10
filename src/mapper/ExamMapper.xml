@@ -24,12 +24,17 @@
 </resultMap>
 
     <select id="getExamRecodeList" resultMap="resultMap" parameterType="hashmap">
-
+        SELECT ex.`id`,u.id AS uid,u.`loginName`,e.id AS eid,e.`examName`,g.id AS gid,g.`score`,ex.`examTime` FROM examrecode ex
+        INNER JOIN USER u ON u.id=ex.`userid` INNER JOIN exam e ON e.`examName`=ex.`exam` INNER JOIN grade g ON g.`score`=ex.`score`
         <where>
-            <if test="loginName != null and loginName != ''">
-                and loginName like '%${loginName}%'
+            <if test="userName != null and userName != ''">
+                and userName like '%${userName}%'
             </if>
         </where>
         limit #{pagestart},#{size}
     </select>
+    <select id="examrecodeCount" resultType="integer">
+        select count(*) from examrecode
+    </select>
+
 </mapper>

@@ -119,7 +119,7 @@ layui.use(['form','jquery',"layer"],function() {
         window.sessionStorage.removeItem("menu");
         menu = [];
         window.sessionStorage.removeItem("curmenu");
-    })
+    });
 
     //功能设定
     $(".functionSetting").click(function(){

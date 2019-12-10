@@ -16,8 +16,8 @@ layui.use(['form','layer','jquery'],function(){
                         console.log(d);
                         if (d > 0) {
                             reid = d;
-                            layer.closeAll();
-                            layer.close(index);
+                            // layer.closeAll();
+                            layer.close(layer.index);
                             parent.location.reload();//刷新父页面
                         } else {
                             layer.msg("修改失败！")

@@ -15,4 +15,9 @@ public class ExamDaoImpl implements ExamDao {
     public List<ExamRecode> getExamRecodeList(HashMap map) {
         return examMapper.getExamRecodeList(map);
     }
+
+    @Override
+    public Integer examrecodeCount() {
+        return examMapper.examrecodeCount();
+    }
 }

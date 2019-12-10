@@ -2,8 +2,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         laytpl = layui.laytpl,
-        table = layui.table;
-    $ = layui.jquery;
+        table = layui.table,
+        $ = layui.jquery;
 
     //用户列表
     var tableIns = table.render({
@@ -114,7 +114,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
                     });
                 }, 500)
             }
-        })
+        });
         layui.layer.full(index);
         window.sessionStorage.setItem("index", index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
@@ -137,7 +137,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
                 var body = layui.layer.getChildFrame('body', index2);
                 if (data) {
                     console.log("userlist>>>>>" + JSON.stringify(data));
-                    body.find("#id").val(data.id); //ID
+                    body.find(".id").val(data.id); //ID
                     body.find(".loginName").val(data.loginName);  //登录名
                     body.find(".email").val(data.email);  //邮箱
                     body.find(".gender input[value=" + data.gender + "]").prop("checked", "checked");  //性别
@@ -208,13 +208,14 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
     });
 
     //列表操作
+    id = $("#id").val();
     table.on('tool(userList)', function (obj) {
         var layEvent = obj.event,
             data = obj.data;
 
         if (layEvent === 'edit') { //编辑
             userModify(data);
-
+            return id;
         } else if (layEvent === 'usable') { //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",

@@ -79,7 +79,7 @@ public class UserController {
 
     @RequestMapping("/updateUserList.action")
     @ResponseBody
-    public int updateUserList(User user) {
+    public int updateUserList(@RequestBody User user) {
         return userDao.updateUserList(user);
     }
 

@@ -53,8 +53,7 @@ public class UserController {
     }
 
     @RequestMapping("/delete.action")
-    public @ResponseBody
-    int delete(String ids) {
+    public @ResponseBody int delete(String ids) {
         boolean d = ids.endsWith(",");
         if (d) {
             ids = ids.substring(0, ids.length() - 1);
@@ -82,6 +81,12 @@ public class UserController {
     @ResponseBody
     public int updateUserList(User user) {
         return userDao.updateUserList(user);
+    }
+
+    @RequestMapping("/userCount.action")
+    @ResponseBody
+    public int userCount() {
+        return userDao.userCount();
     }
 
 }

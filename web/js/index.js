@@ -6,8 +6,9 @@ layui.config({
 })
 layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	var form = layui.form,
-		element = layui.element;
-		$ = layui.$;
+		element = layui.element,
+		$ = layui.$,
+    layer = parent.layer === undefined ? layui.layer : top.layer;
     var username = window.sessionStorage.getItem("user");   //取值
     $("#username").html(username);
     var right = window.sessionStorage.getItem("level");   //取值
@@ -20,11 +21,11 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
         url="json/student.json"
 	}
 
-    	layer = parent.layer === undefined ? layui.layer : top.layer;
 		tab = layui.bodyTab({
 			openTabNum : "50",  //最大可打开窗口数量
 			url : url //获取菜单json地址
 		});
+    $(".userName").text(window.sessionStorage.getItem("user"));
 
 	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
 	function getData(json){

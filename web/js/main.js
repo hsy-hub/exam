@@ -97,9 +97,15 @@ layui.use(['form','element','layer','jquery'],function(){
     })
 
     //用户总数
-    $.get("../json/userList.json",function(data){
-        $(".userAll span").text(data.count);
-    })
+    // $.get("../json/userList.json",function(data){
+    //     $(".userAll span").text(data.count);
+    // })
+    $.ajax({
+        url: "/ssm/userCount.action",
+        success:function (d) {
+            $(".userAll span").text(d);
+        }
+    });
 
     //外部图标
     $.get(iconUrl,function(data){

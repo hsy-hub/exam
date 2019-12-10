@@ -42,4 +42,9 @@ public class UserDaoImpl implements UserDao {
     public int updateUserList(User user) {
         return userMapper.updateUserList(user);
     }
+
+    @Override
+    public int endLoginTime(HashMap map) {
+        return userMapper.endLoginTime(map);
+    }
 }

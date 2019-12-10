@@ -1,5 +1,7 @@
 package pojo;
 
+import java.util.Date;
+
 public class User {
     Integer id;
     String loginName;
@@ -10,10 +12,18 @@ public class User {
     String stauts;
     String describe;
     String classid;
-    String endLoginTime;
+    Date endLoginTime;
      Level levels;
      Stauts stauts1;
      Gender gender1;
+
+    public Date getEndLoginTime() {
+        return endLoginTime;
+    }
+
+    public void setEndLoginTime(Date endLoginTime) {
+        this.endLoginTime = endLoginTime;
+    }
 
     public Gender getGender1() {
         return gender1;
@@ -39,13 +49,6 @@ public class User {
         this.levels = levels;
     }
 
-    public String getEndLoginTime() {
-        return endLoginTime;
-    }
-
-    public void setEndLoginTime(String endLoginTime) {
-        this.endLoginTime = endLoginTime;
-    }
 
     public String getPassword() {
         return password;

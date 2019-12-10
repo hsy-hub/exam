@@ -208,11 +208,10 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
     });
 
     //列表操作
-    id = $("#id").val();
     table.on('tool(userList)', function (obj) {
         var layEvent = obj.event,
             data = obj.data;
-
+        id = $("#id").val();
         if (layEvent === 'edit') { //编辑
             userModify(data);
             return id;

@@ -12,4 +12,5 @@ public interface UserDao {
     int delete(Integer id);
     int add(User user);
     int updateUserList(User user);
+    int endLoginTime(HashMap map);
 }

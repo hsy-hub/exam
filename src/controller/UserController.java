@@ -12,6 +12,7 @@ import tool.Tool;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,10 @@ public class UserController {
         HttpSession session = request.getSession();
         User loginUser = userDao.login(user);
         if (loginUser != null){
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("id",loginUser.getId());
+            map.put("endLoginTime",new Date());
+            userDao.endLoginTime(map);
             session.setAttribute("user",loginUser);
             return loginUser;
         }else{

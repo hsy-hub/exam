@@ -1,9 +1,25 @@
 var reid;
-layui.use(['form','layer','jquery'],function(){
+layui.use(['form','layer','jquery','table'],function(){
     var form = layui.form,
+        table = layui.table,
     // layer = parent.layer === undefined ? layui.layer : top.layer,
     $ = layui.$,
     layer = layui.layer;
+
+    form.on('submit(userModify)', function (data) {
+        console.log(data);
+        $.post('/ssm/updateUserList.action', data.field, function (flag) {
+            if (flag == 1) {
+                layer.msg("修改成功", {icon: 6});
+                parent.location.reload();    //修改后返回列表页面进行刷新
+                var index = parent.layer.getFrameIndex(window.name);    //获得frame索引
+                parent.layer.close(index);     //关闭当前frame
+            } else {
+                layer.msg("修改失败", {icon: 6});
+            }
+        })
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    })
 
         form.on("submit(userModify)",function(data){
             $.ajax(
@@ -12,17 +28,17 @@ layui.use(['form','layer','jquery'],function(){
                     url: "/ssm/updateUserList.action",
                     type: "post",
                     contentType: "application/json",
-                    success: function (d) {
-                        console.log(d);
-                        if (d > 0) {
-                            reid = d;
-                            // layer.closeAll();
-                            layer.close(layer.index);
-                            parent.location.reload();//刷新父页面
-                        } else {
-                            layer.msg("修改失败！")
-                        }
-                    }
+                    // success: function (d) {
+                    //     console.log(d);
+                    //     if (d > 0) {
+                    //         reid = d;
+                    //         // layer.closeAll();
+                    //         layer.close(layer.index);
+                    //         parent.location.reload();//刷新父页面
+                    //     } else {
+                    //         layer.msg("修改失败！")
+                    //     }
+                    // }
                 })
             //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });

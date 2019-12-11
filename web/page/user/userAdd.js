@@ -23,17 +23,17 @@ layui.use(['form','layer'],function(){
         // setTimeout(function(){
             $.ajax(
                 {
-                    data: JSON.stringify(data.field),
                     url: "/ssm/addUser.action",
+                    data: JSON.stringify(data.field),
                     type: "post",
                     contentType: "application/json",
                     success: function (d) {
                         console.log(d);
                         if (d > 0) {
                             reid = d;
-                            layer.closeAll();
-                            layer.close(index);
-                            parent.location.reload();//刷新父页面
+                            parent.location.reload();    //修改后返回列表页面进行刷新
+                            var index = parent.layer.getFrameIndex(window.name);    //获得frame索引
+                            parent.layer.close(index);     //关闭当前frame/刷新父页面
                         } else {
                             layer.msg("添加失败！")
                         }
@@ -46,7 +46,7 @@ layui.use(['form','layer'],function(){
         //     parent.location.reload();
         // },2000);
 
-        //return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
 
     //格式化时间

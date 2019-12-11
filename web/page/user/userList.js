@@ -90,10 +90,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery','util'], function () {
     //添加用户
     function addUser(edit) {
         var index = layui.layer.open({
-            resize: true,
             title: "添加用户",
             type: 2,
-            shadeClose: true,
             content: "userAdd.html",
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
@@ -105,7 +103,6 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery','util'], function () {
                     body.find(".level").val(edit.level);  //会员等级
                     body.find(".status").val(edit.status);    //用户状态
                     body.find(".classid").val(data.classid);    //班级
-                    body.find(".endLoginTime").val(data.endLoginTime);    //最后登录时间
                     body.find(".describe").text(edit.describe);    //用户简介
                     form.render();
                 }

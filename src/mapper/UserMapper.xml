@@ -60,7 +60,7 @@
     </delete>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="user">
-        insert into user value (null,#{loginName},#{password},#{email},#{gender},#{level},#{stauts},#{describe},#{classid},#{endLoginTime})
+        insert into user value (null,#{loginName},null,#{email},#{gender},#{level},#{stauts},#{describe},#{classid},null)
     </insert>
 
     <!--<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="user">-->

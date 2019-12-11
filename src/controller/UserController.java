@@ -32,14 +32,12 @@ public class UserController {
         User loginUser = userDao.login(user);
         if (loginUser != null){
             HashMap<String,Object> map = new HashMap<>();
+            session.setAttribute("user",loginUser);
             map.put("id",loginUser.getId());
             map.put("endLoginTime",new Date());
             userDao.endLoginTime(map);
-            session.setAttribute("user",loginUser);
-            return loginUser;
-        }else{
-           return null;
         }
+        return loginUser;
     }
 
     @RequestMapping("/userList.action")

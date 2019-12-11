@@ -37,4 +37,34 @@
         select count(*) from examrecode
     </select>
 
+
+    <resultMap id="resultMap1" type="testadmin">
+        <id column="id" property="id"/>
+        <result column="examName" property="examName"/>
+        <result column="publisher" property="publisher"/>
+        <result column="pubstuats" property="pubstuats"/>
+        <result column="browsetype" property="browsetype"/>
+        <result column="publicTime" property="publicTime"/>
+        <association property="exam" javaType="Exam">
+            <id column="id" property="eid"/>
+            <result column="examName" property="examName"/>
+            <result column="pubstuats" property="pubstuats"/>
+            <result column="browsetype" property="browsetype"/>
+            <result column="publisher" property="publisher"/>
+        </association>
+    </resultMap>
+
+    <select id="getTestAdminList" resultMap="resultMap1" parameterType="hashmap">
+        SELECT t.id,e.examName,e.publisher,e.pubstauts,e.browsetype,t.publicTime,e.id as eid FROM testadmin t INNER JOIN exam e ON t.id=e.id
+        <where>
+            <if test="examName != null and examName != ''">
+                and examName like '%${examName}%'
+            </if>
+        </where>
+        limit #{pagestart},#{size}
+    </select>
+
+    <select id="testadminCount" resultType="integer">
+        select count(*) from testadmin
+    </select>
 </mapper>

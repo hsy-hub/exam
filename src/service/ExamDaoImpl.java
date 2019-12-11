@@ -4,6 +4,7 @@ import mapper.ExamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pojo.ExamRecode;
+import pojo.TestAdmin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,5 +20,15 @@ public class ExamDaoImpl implements ExamDao {
     @Override
     public Integer examrecodeCount() {
         return examMapper.examrecodeCount();
+    }
+
+    @Override
+    public List<TestAdmin> getTestAdminList(HashMap map) {
+        return examMapper.getTestAdminList(map);
+    }
+
+    @Override
+    public Integer testadminCount() {
+        return examMapper.testadminCount();
     }
 }

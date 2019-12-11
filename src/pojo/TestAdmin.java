@@ -1,20 +1,20 @@
 package pojo;
 
-public class Exam {
+public class TestAdmin {
     Integer id;
     String examName;
-    String examDecript;
-    String classid;
+    String publisher;
     String pubstuats;
     String browsetype;
-    String publisher;
+    String publicTime;
+    Exam exam;
 
-    public String getPublisher() {
-        return publisher;
+    public Exam getExam() {
+        return exam;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
     public Integer getId() {
@@ -33,20 +33,12 @@ public class Exam {
         this.examName = examName;
     }
 
-    public String getExamDecript() {
-        return examDecript;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public void setExamDecript(String examDecript) {
-        this.examDecript = examDecript;
-    }
-
-    public String getClassid() {
-        return classid;
-    }
-
-    public void setClassid(String classid) {
-        this.classid = classid;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getPubstuats() {
@@ -63,5 +55,13 @@ public class Exam {
 
     public void setBrowsetype(String browsetype) {
         this.browsetype = browsetype;
+    }
+
+    public String getPublicTime() {
+        return publicTime;
+    }
+
+    public void setPublicTime(String publicTime) {
+        this.publicTime = publicTime;
     }
 }

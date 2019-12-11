@@ -1,9 +1,9 @@
 var reid;
 layui.use(['form','layer'],function(){
-    var form = layui.form
+    var form = layui.form,
         // layer = parent.layer === undefined ? layui.layer : top.layer,
-        $ = layui.jquery;
-        layer = layui.layer,
+        $ = layui.jquery,
+        layer = layui.layer;
 
     form.on("submit(addUser)",function(data){
         //弹出loading

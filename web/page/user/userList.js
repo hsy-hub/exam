@@ -1,8 +1,9 @@
-layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
+layui.use(['form', 'layer', 'table', 'laytpl', 'jquery','util'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         laytpl = layui.laytpl,
         table = layui.table,
+        util=layui.util,
         $ = layui.jquery;
 
     //用户列表
@@ -54,11 +55,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
             //     }
             // }
             // },
-            {field: 'endLoginTime', title: '最后登录时间', align: 'center', minWidth: 150,
-                templet:function (d) {
-                    return d.endLoginTime;
-                }
-                },
+            {field:'endLoginTime',title:'最后登录时间',templet: '<div>{{layui.util.toDateString(d.endLoginTime*1000, "yyyy-MM-dd HH                                                                                           :mm:ss") }}</div>'},
             {title: '操作', minWidth: 175, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
         , done: function (res, curr, count) {  //回调函数解决最后一页删除跳转到前一页
@@ -108,8 +105,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
                     body.find(".level").val(edit.level);  //会员等级
                     body.find(".status").val(edit.status);    //用户状态
                     body.find(".classid").val(data.classid);    //班级
+                    body.find(".endLoginTime").val(data.endLoginTime);    //最后登录时间
                     body.find(".describe").text(edit.describe);    //用户简介
-                    body.find(".endLoginTime").val(edit.endLoginTime);    //最后登录时间
                     form.render();
                 }
                 setTimeout(function () {
@@ -148,7 +145,6 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
                     body.find(".level").val(data.level);  //会员等级
                     body.find(".status").val(data.stauts);    //用户状态
                     body.find(".classid").val(data.classid);    //班级
-                    body.find(".endLoginTime").val(data.endLoginTime);    //最后登录时间
                     body.find(".describe").text(data.describe);    //用户简介
                     form.render();
                 }

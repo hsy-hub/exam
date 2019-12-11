@@ -68,7 +68,7 @@
     <!--</insert>-->
 
     <update id="updateUserList" parameterType="user">
-        update user set loginName=#{loginName},email=#{email},gender=#{gender},level=#{level},stauts=#{stauts},describe=#{describe},classid=#{classid},endLoginTime=#{endLoginTime}) where id=#{id}
+        update user set loginName=#{loginName},email=#{email},gender=#{gender},level=#{level},stauts=#{stauts},describe=#{describe},classid=#{classid} where id=#{id}
     </update>
 
     <update id="endLoginTime" parameterType="hashmap">

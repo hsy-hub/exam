@@ -54,7 +54,11 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'jquery'], function () {
             //     }
             // }
             // },
-            {field: 'endLoginTime', title: '最后登录时间', align: 'center', minWidth: 150},
+            {field: 'endLoginTime', title: '最后登录时间', align: 'center', minWidth: 150,
+                templet:function (d) {
+                    return d.endLoginTime;
+                }
+                },
             {title: '操作', minWidth: 175, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
         , done: function (res, curr, count) {  //回调函数解决最后一页删除跳转到前一页

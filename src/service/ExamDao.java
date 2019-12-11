@@ -12,4 +12,5 @@ public interface ExamDao {
 
     List<TestAdmin> getTestAdminList(HashMap map);
     Integer testadminCount();
+    int deleteit(Integer id);
 }

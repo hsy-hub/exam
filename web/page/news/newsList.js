@@ -13,7 +13,7 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
         cellMinWidth : 95,
         page : true,
         height : "full-125",
-        limit : 20,
+        limit : 10,
         limits : [10,15,20,25],
         id : "newsListTable",
         cols : [[
@@ -21,7 +21,8 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
             {field: 'id', title: 'ID', width:60, align:"center"},
             {field: 'examName', title: '试题名称', width:350},
             {field: 'publisher', title: '发布者', align:'center'},
-            {field: 'pubstuats', title: '发布状态',  align:'center',templet:"#pubstuats"},
+            // {field: 'pubstuats', title: '发布状态',  align:'center',templet:"#pubstuats"},
+            {field: 'pubstuats', title: '发布状态',  align:'center'},
             {field: 'browsetype', title: '浏览权限', align:'center'},
             {field: 'publicTime', title: '发布时间', align:'center', minWidth:110, templet:function(d){
                 return d.publicTime.substring(0,10);
@@ -44,20 +45,19 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
     // });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
-    $(".search_btn").on("click",function(){
-        if($(".searchVal").val() != ''){
+    $("#search_btn").on("click",function(){
+        var searchVal = $("#searchVal");
             table.reload("newsListTable",{
                 page: {
                     curr: 1 //重新从第 1 页开始
-                },
-                where: {
-                    key: $(".searchVal").val()  //搜索的关键字
+                }
+                ,url: "/ssm/testAdminList.action"
+                ,where: {
+                    'examName': searchVal.val()  //搜索的关键字
                 }
             })
-        }else{
-            layer.msg("请输入搜索的内容");
-        }
     });
+
 
     //添加文章
     function addNews(edit){
@@ -98,23 +98,40 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
     $(".delAll_btn").click(function(){
         var checkStatus = table.checkStatus('newsListTable'),
             data = checkStatus.data,
-            newsId = [];
+            // newsId = [];
+            id = "";
         if(data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                // newsId.push(data[i].newsId);
+                id += data[i].id + ",";
+                layer.msg(id);
             }
             layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
                 // $.get("删除文章接口",{
                 //     newsId : newsId  //将需要删除的newsId作为参数传入
                 // },function(data){
-                tableIns.reload();
-                layer.close(index);
+                // tableIns.reload();
+                // layer.close(index);
                 // })
+                $.ajax({
+                    url: "/ssm/deleteit.action",
+                    data: {"ids": id},
+                    success: function (flag) {
+                        if (flag > 0) {
+                            layer.msg("删除成功");
+                            layer.closeAll();
+                            table.reload('newsListTable', {});
+                        } else {
+                            layer.msg("删除失败");
+                        }
+
+                    }
+                })
             })
         }else{
             layer.msg("请选择需要删除的文章");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(newsList)', function(obj){
@@ -125,11 +142,24 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
             addNews(data);
         } else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此文章？',{icon:3, title:'提示信息'},function(index){
+                $.ajax({
+                    url: "/ssm/deleteit.action",
+                    data: {"ids": data.id},
+                    success: function (flag) {
+                        if (flag == 1) {
+                            layer.msg("删除成功");
+                            layer.closeAll();
+                            table.reload('newsListTable', {});
+                        } else {
+                            layer.msg("删除失败");
+                        }
+                    }
+                })
                 // $.get("删除文章接口",{
                 //     newsId : data.newsId  //将需要删除的newsId作为参数传入
                 // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
+                //     tableIns.reload();
+                //     layer.close(index);
                 // })
             });
         } else if(layEvent === 'look'){ //预览

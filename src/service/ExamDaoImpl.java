@@ -31,4 +31,9 @@ public class ExamDaoImpl implements ExamDao {
     public Integer testadminCount() {
         return examMapper.testadminCount();
     }
+
+    @Override
+    public int deleteit(Integer id) {
+        return examMapper.deleteit(id);
+    }
 }

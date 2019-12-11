@@ -58,4 +58,19 @@ public class ExamController {
         return returnTable;
     }
 
+    @RequestMapping("/deleteit.action")
+    public @ResponseBody int deleteit(String ids) {
+        boolean d = ids.endsWith(",");
+        if (d) {
+            ids = ids.substring(0, ids.length() - 1);
+        }
+        String[] all = ids.split(",");
+
+        int result = 0;
+        for (String id : all) {
+            result = examDao.deleteit(Integer.parseInt(id));
+        }
+        return result;
+    }
+
 }

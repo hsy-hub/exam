@@ -6,10 +6,10 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
         laytpl = layui.laytpl,
         table = layui.table;
 
-    //新闻列表
+    //试题管理列表
     var tableIns = table.render({
         elem: '#newsList',
-        url : '/ssm/testAdminList.action',
+        url : '/ssm/examList.action',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -51,7 +51,7 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                ,url: "/ssm/testAdminList.action"
+                ,url: "/ssm/examList.action"
                 ,where: {
                     'examName': searchVal.val()  //搜索的关键字
                 }

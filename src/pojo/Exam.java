@@ -8,6 +8,24 @@ public class Exam {
     String pubstuats;
     String browsetype;
     String publisher;
+    String publicTime;
+    User user;
+
+    public String getPublicTime() {
+        return publicTime;
+    }
+
+    public void setPublicTime(String publicTime) {
+        this.publicTime = publicTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getPublisher() {
         return publisher;

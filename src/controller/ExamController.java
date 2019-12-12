@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pojo.ExamRecode;
-import pojo.TestAdmin;
+import pojo.Exam;
 import service.ExamDao;
 import tool.Tool;
 
@@ -20,40 +19,40 @@ public class ExamController {
     ExamDao examDao;
     @Autowired
     HttpServletRequest request;
+//
+//    @RequestMapping("/examList.action")
+//    @ResponseBody       //加上 @ResponseBody 后，会直接返回 json 数据
+//    public Map<String, Object> examList(ExamRecode examRecode, int page, int limit) {
+//        HashMap<String, Object> map = new HashMap<>();
+//        int pagestart = (page - 1) * limit;
+//        map.put("pagestart", pagestart);
+//        map.put("size", limit);
+//        map.put("userName", examRecode.getUserName());//查询条件
+//        List<ExamRecode> examList = examDao.getExamRecodeList(map);
+//        Integer pagecount = examDao.examrecodeCount();
+//        Map<String, Object> returnTable = Tool.testLayui(examList, page, limit);
+//        returnTable.put("count", pagecount);
+//        return returnTable;
+//    }
+
+
+
+
+
+
+
 
     @RequestMapping("/examList.action")
     @ResponseBody       //加上 @ResponseBody 后，会直接返回 json 数据
-    public Map<String, Object> examList(ExamRecode examRecode, int page, int limit) {
+    public Map<String, Object> examList(Exam exam, int page, int limit) {
         HashMap<String, Object> map = new HashMap<>();
         int pagestart = (page - 1) * limit;
         map.put("pagestart", pagestart);
         map.put("size", limit);
-        map.put("userName", examRecode.getUserName());//查询条件
-        List<ExamRecode> examList = examDao.getExamRecodeList(map);
-        Integer pagecount = examDao.examrecodeCount();
+        map.put("examName", exam.getExamName());//查询条件
+        List<Exam> examList = examDao.getexamList(map);
+        Integer pagecount = examDao.examListCount();
         Map<String, Object> returnTable = Tool.testLayui(examList, page, limit);
-        returnTable.put("count", pagecount);
-        return returnTable;
-    }
-
-
-
-
-
-
-
-
-    @RequestMapping("/testAdminList.action")
-    @ResponseBody       //加上 @ResponseBody 后，会直接返回 json 数据
-    public Map<String, Object> testAdminList(TestAdmin testAdmin, int page, int limit) {
-        HashMap<String, Object> map = new HashMap<>();
-        int pagestart = (page - 1) * limit;
-        map.put("pagestart", pagestart);
-        map.put("size", limit);
-        map.put("examName", testAdmin.getExamName());//查询条件
-        List<TestAdmin> testAdminList = examDao.getTestAdminList(map);
-        Integer pagecount = examDao.testadminCount();
-        Map<String, Object> returnTable = Tool.testLayui(testAdminList, page, limit);
         returnTable.put("count", pagecount);
         return returnTable;
     }

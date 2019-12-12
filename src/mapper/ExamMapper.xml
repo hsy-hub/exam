@@ -38,37 +38,36 @@
     </select>
 
 
-    <resultMap id="resultMap1" type="testadmin">
+    <resultMap id="resultMap1" type="exam">
         <id column="id" property="id"/>
         <result column="examName" property="examName"/>
         <result column="publisher" property="publisher"/>
+        <result column="examDecript" property="examDecript"/>
+        <result column="classid" property="classid"/>
         <result column="pubstuats" property="pubstuats"/>
         <result column="browsetype" property="browsetype"/>
         <result column="publicTime" property="publicTime"/>
-        <association property="exam" javaType="Exam">
+        <association property="user" javaType="User">
             <id column="id" property="id"/>
-            <result column="examName" property="examName"/>
-            <result column="pubstuats" property="pubstuats"/>
-            <result column="browsetype" property="browsetype"/>
-            <result column="publisher" property="publisher"/>
+            <result column="loginName" property="loginName"/>
         </association>
     </resultMap>
 
-    <select id="getTestAdminList" resultMap="resultMap1" parameterType="hashmap">
-        SELECT t.id,e.examName,e.publisher,e.pubstauts,e.browsetype,t.publicTime FROM testadmin t INNER JOIN exam e ON t.id=e.id
+    <select id="getexamList" resultMap="resultMap1" parameterType="hashmap">
+        SELECT e.id,e.examName,u.id as uid,e.pubstauts,e.browsetype,e.publicTime  FROM exam e INNER JOIN USER u ON u.id=e.publisher
         <where>
             <if test="examName != null and examName != ''">
-                and e.examName like #{examName}
+                and examName like #{examName}
             </if>
         </where>
         limit #{pagestart},#{size}
     </select>
 
-    <select id="testadminCount" resultType="integer">
-        select count(*) from testadmin
+    <select id="examListCount" resultType="integer">
+        select count(*) from exam
     </select>
 
-    <delete id="deleteit" parameterType="testadmin">
-        delete from testadmin where id=#{id}
+    <delete id="deleteit" parameterType="exam">
+        delete from exam where id=#{id}
     </delete>
 </mapper>

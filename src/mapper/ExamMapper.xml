@@ -54,7 +54,7 @@
     </resultMap>
 
     <select id="getexamList" resultMap="resultMap1" parameterType="hashmap">
-        SELECT e.id,e.examName,u.id as uid,e.pubstauts,e.browsetype,e.publicTime  FROM exam e INNER JOIN USER u ON u.id=e.publisher
+        SELECT e.*,u.id AS uid,u.loginName FROM exam e INNER JOIN USER u ON e.publisher=u.id
         <where>
             <if test="examName != null and examName != ''">
                 and examName like #{examName}

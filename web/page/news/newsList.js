@@ -22,7 +22,7 @@ layui.use(['form','layer','laydate','table','laytpl','jquery'],function(){
             {field: 'examName', title: '试题名称', width:350},
             {field: 'publisher', title: '发布者', align:'center'},
             // {field: 'pubstuats', title: '发布状态',  align:'center',templet:"#pubstuats"},
-            {field: 'pubstuats', title: '发布状态',  align:'center'},
+            {field: 'pubstauts', title: '发布状态',  align:'center'},
             {field: 'browsetype', title: '浏览权限', align:'center'},
             {field: 'publicTime', title: '发布时间', align:'center', minWidth:110, templet:function(d){
                 return d.publicTime.substring(0,10);

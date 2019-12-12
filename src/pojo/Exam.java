@@ -5,11 +5,19 @@ public class Exam {
     String examName;
     String examDecript;
     String classid;
-    String pubstuats;
+    String pubstauts;
     String browsetype;
     String publisher;
     String publicTime;
     User user;
+
+    public String getPubstauts() {
+        return pubstauts;
+    }
+
+    public void setPubstauts(String pubstauts) {
+        this.pubstauts = pubstauts;
+    }
 
     public String getPublicTime() {
         return publicTime;
@@ -67,13 +75,6 @@ public class Exam {
         this.classid = classid;
     }
 
-    public String getPubstuats() {
-        return pubstuats;
-    }
-
-    public void setPubstuats(String pubstuats) {
-        this.pubstuats = pubstuats;
-    }
 
     public String getBrowsetype() {
         return browsetype;
